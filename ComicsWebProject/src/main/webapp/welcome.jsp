@@ -6,7 +6,6 @@
 <title>Bienvenido!</title>
 </head>
 <body>
-	<jsp:forward page="/PersonsController?action=listPersons" />
-	<jsp:forward page="/ComicsController?action=listComics" />
+	<jsp:forward page="/IndexController" />
 </body>
 </html>

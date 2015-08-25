@@ -5,6 +5,11 @@
 
 <html>
 <head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 	<!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,7 +17,7 @@
     <link href="css/agency.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
-    <link href="css/font/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -21,7 +26,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<title>Show All Comics</title>
 </head>
-<body>
+<body id="page-top">
 	<!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -43,13 +48,13 @@
                         <a href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#listComics">Comic List</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#addComic">Comic</a>
+                        <a class="page-scroll" href="#add">ABM</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#listPersons">Person List</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#listComics">Comic List</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#addPerson">Person</a>
@@ -74,6 +79,62 @@
             </div>
         </div>
     </header>
+    
+    <!-- Add Section -->
+    <section id="add" class="bg-light-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">ABM</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="PersonsController?action=insert" class="portfolio-link">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/abm/add-persons-min.jpg" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Add Person</h4>
+                        <p class="text-muted">Person</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="ComicsController?action=insert" class="portfolio-link">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/abm/add-comics-min.jpg" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Add Comic</h4>
+                        <p class="text-muted">Comic</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 portfolio-item">
+                    <a href="LoansController?action=insert" class="portfolio-link">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <i class="fa fa-plus fa-3x"></i>
+                            </div>
+                        </div>
+                        <img src="img/abm/add-loans-min.jpg" class="img-responsive" alt="">
+                    </a>
+                    <div class="portfolio-caption">
+                        <h4>Add Loan</h4>
+                        <p class="text-muted">Loan</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     
     <!-- Comic List Section-->
     <section id="listComics">
