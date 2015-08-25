@@ -220,6 +220,7 @@ public class Command {
 			}
 			if (o instanceof Person) {
 				while (rs.next()) {
+					o = new Person();
 					((Person) o).setName(rs.getString("name"));
 					((Person) o).setAdress(rs.getString("adress"));
 					((Person) o).setTelephone(rs.getString("telephone"));

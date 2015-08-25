@@ -21,7 +21,7 @@ import entities.Person;
 public class PersonsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String INSERT_OR_EDIT = "static/persons/person.jsp";
-    private static String LIST_USER = "static/persons/listPerson.jsp";
+    private static String LIST_PERSONS = "index.jsp";
     private static PersonDao dao;
        
     /**
@@ -42,15 +42,15 @@ public class PersonsController extends HttpServlet {
         if (action.equalsIgnoreCase("delete")){
             String name = request.getParameter("name");
             dao.deletePerson(name);
-            forward = LIST_USER;
+            forward = LIST_PERSONS;
             request.setAttribute("comics", dao.selectPeople());    
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             String name = request.getParameter("name");
             dao.updatePerson(name, " ", " ");
             request.setAttribute("person", null);
-        } else if (action.equalsIgnoreCase("listComics")){
-            forward = LIST_USER;
+        } else if (action.equalsIgnoreCase("listPersons")){
+            forward = LIST_PERSONS;
             request.setAttribute("persons", dao.selectPeople());
         } else {
             forward = INSERT_OR_EDIT;
@@ -66,8 +66,8 @@ public class PersonsController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  String comicName = request.getParameter("name");
 	        dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));
-	        RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
-	        request.setAttribute("comics", dao.selectPeople());
+	        RequestDispatcher view = request.getRequestDispatcher(LIST_PERSONS);
+	        request.setAttribute("persons", dao.selectPeople());
 	        view.forward(request, response);
 		doGet(request, response);
 	}

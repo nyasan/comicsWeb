@@ -21,7 +21,7 @@ import transactions.Catalog;
 public class ComicsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String INSERT_OR_EDIT = "static/comics/comic.jsp";
-    private static String LIST_USER = "static/comics/listComics.jsp";
+    private static String LIST_USER = "/index.jsp";
     private static ComicDao dao;
        
     /**
