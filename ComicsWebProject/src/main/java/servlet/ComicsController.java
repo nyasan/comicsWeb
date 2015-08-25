@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.ComicDao;
 import entities.Comic;
 import entities.Genre;
+import transactions.Catalog;
 
 /**
  * Servlet implementation class ComicsController

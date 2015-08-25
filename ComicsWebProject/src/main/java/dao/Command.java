@@ -210,6 +210,7 @@ public class Command {
 			ResultSet rs = ps.executeQuery();
 			if (o instanceof Copy) {
 				while (rs.next()) {
+					o = new Copy();
 					((Copy) o).setAvalible(rs.getInt("avalible") == 0 ? false : true);
 					((Copy) o).setNumber(rs.getInt("number"));
 					((Copy) o).setC(new Comic(rs.getString("name"),
