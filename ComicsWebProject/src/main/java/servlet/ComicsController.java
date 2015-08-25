@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ComicDao;
 import entities.Comic;
+import entities.Genre;
 
 /**
  * Servlet implementation class ComicsController
@@ -18,7 +19,7 @@ import entities.Comic;
 @WebServlet("/ComicsController")
 public class ComicsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String INSERT_OR_EDIT = "/comic.jsp";
+	private static String INSERT_OR_EDIT = "static/comics/comic.jsp";
     private static String LIST_USER = "static/comics/listComics.jsp";
     private static ComicDao dao;
        
@@ -47,7 +48,7 @@ public class ComicsController extends HttpServlet {
 	            String name = request.getParameter("name");
 	            Comic comic = (Comic)dao.searchComic(name);
 	            request.setAttribute("comic", comic);
-	        } else if (action.equalsIgnoreCase("listUser")){
+	        } else if (action.equalsIgnoreCase("listComics")){
 	            forward = LIST_USER;
 	            request.setAttribute("comics", dao.selectComics());
 	        } else {
@@ -62,8 +63,13 @@ public class ComicsController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		    String comicName = request.getParameter("name");
+	        
+	        dao.insertComic(request.getParameter("name"),request.getParameter("Type") );;
+	        
+	        RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
+	        request.setAttribute("comics", dao.selectComics());
+	        view.forward(request, response);
 	}
 
 }
