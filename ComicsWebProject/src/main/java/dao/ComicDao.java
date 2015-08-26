@@ -28,7 +28,6 @@ public class ComicDao {
 	}
 
 	public static void deleteComic(String name) {
-		Catalog.getInstance().getMap().remove(name);
 		Command.delete("DELETE FROM comics WHERE name LIKE ?", name);
 	}
 

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,8 +36,10 @@ public class IndexController extends HttpServlet {
 		String forward="";
         String action = request.getParameter("action");
 			forward = HOME;
-			request.setAttribute("comics", ComicDao.selectComics());
-			request.setAttribute("persons", PersonDao.selectPeople());
+			ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
+			ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
+			request.setAttribute("comics", comicList);
+			request.setAttribute("persons", personList);
 			
 			 RequestDispatcher view = request.getRequestDispatcher(forward);
 		     view.forward(request, response);

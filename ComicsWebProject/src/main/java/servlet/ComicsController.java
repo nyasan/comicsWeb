@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ComicDao;
 import entities.Comic;
+import entities.Copy;
 import entities.Genre;
 import transactions.Catalog;
 
@@ -43,15 +46,17 @@ public class ComicsController extends HttpServlet {
 	            String name = request.getParameter("name");
 	            dao.deleteComic(name);
 	            forward = LIST_USER;
-	            request.setAttribute("comics", dao.selectComics());    
+	            ArrayList list = new ArrayList<>(dao.selectComics().values());
+	            request.setAttribute("comics", list);    
 	        } else if (action.equalsIgnoreCase("edit")){
 	            forward = INSERT_OR_EDIT;
 	            String name = request.getParameter("name");
-	            Comic comic = (Comic)dao.searchComic(name);
+	            Copy comic = (Copy)dao.searchComic(name);
 	            request.setAttribute("comic", comic);
 	        } else if (action.equalsIgnoreCase("listComics")){
 	            forward = LIST_USER;
-	            request.setAttribute("comics", dao.selectComics());
+	            ArrayList list = new ArrayList<>(dao.selectComics().values());
+	            request.setAttribute("comics", list);
 	        } else {
 	            forward = INSERT_OR_EDIT;
 	        }
@@ -65,12 +70,16 @@ public class ComicsController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    String comicName = request.getParameter("name");
-	        
-	        dao.insertComic(request.getParameter("name"),request.getParameter("Type") );;
-	        
-	        RequestDispatcher view = request.getRequestDispatcher(LIST_USER);
-	        request.setAttribute("comics", dao.selectComics());
-	        view.forward(request, response);
+		    Copy comic = (Copy)dao.searchComic(comicName);
+		    if(comic.getC().getType()==null)
+		    {
+		    	dao.insertComic(request.getParameter("name"),request.getParameter("Type") );;
+		    }
+		    else
+		    {
+		    	dao.updateComic(1, comicName, request.getParameter("Type"), comicName);
+		    }
+	        response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
 	}
 
 }

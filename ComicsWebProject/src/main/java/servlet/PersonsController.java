@@ -58,18 +58,14 @@ public class PersonsController extends HttpServlet {
 
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
-	}
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  String comicName = request.getParameter("name");
-	        dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));
-	        RequestDispatcher view = request.getRequestDispatcher(LIST_PERSONS);
-	        request.setAttribute("persons", dao.selectPeople());
-	        view.forward(request, response);
-		doGet(request, response);
+		    dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));
+	        response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
 	}
 
 }
