@@ -2,36 +2,11 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="css/agency.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css">
-<link href='https://fonts.googleapis.com/css?family=Kaushan+Script'
-	rel='stylesheet' type='text/css'>
-<link
-	href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic'
-	rel='stylesheet' type='text/css'>
-<link
-	href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700'
-	rel='stylesheet' type='text/css'>
-
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<jsp:include page="static/base/style.jsp"/>
 <title>Show All Comics</title>
 </head>
 <body id="page-top" class="index">
@@ -73,8 +48,7 @@
 		<div class="intro-text">
 			<div class="intro-lead-in">Welcome To Our Store!</div>
 			<div class="intro-heading">It's Nice To Meet You</div>
-			<a href="UsersController?action=login"
-				class="page-scroll btn btn-xl">Loginc</a>
+			<a href="UsersController?action=login" class="page-scroll btn btn-xl">Login</a>
 		</div>
 	</div>
 	</header>
@@ -85,7 +59,8 @@
 		<div class="row">
 			<div class="col-lg-12 text-center">
 				<h2 class="section-heading">ABM</h2>
-				<h3 class="section-subheading text-muted">This section is for your transactions</h3>
+				<h3 class="section-subheading text-muted">This section is for
+					your transactions</h3>
 			</div>
 		</div>
 		<div class="row">
@@ -150,15 +125,21 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${comics}" var="comic">
-				<tr>
-					<td><c:out value="${comic.getC().name}" /></td>
-					<td><c:out value="${comic.getC().getType().name}" /></td>
-					<td><c:out value="${comic.isAvalible()}" /></td>
-					<td><a href="ComicsController?action=edit&name=<c:out value="${comic.getC().name}"/>">Update</a></td>
-                    <td><a href="ComicsController?action=delete&name=<c:out value="${comic.getC().name}"/>">Delete</a></td>
-				</tr>
-			</c:forEach>
+				<c:forEach items="${comics}" var="comic">
+					<tr>
+						<td><c:out value="${comic.getC().name}" /></td>
+						<td><c:out value="${comic.getC().getType().name}" /></td>
+						<td><c:out value="${comic.isAvalible()}" /></td>
+						<td><input class="btn btn-primary" id="update" name="update"
+							type="button"
+							onclick="location.href='ComicsController?action=edit&name=<c:out value="${comic.getC().name}"/>'"
+							value="Update"></td>
+						<td><input class="btn btn-primary" name="delete"
+							type="button"
+							onclick="location.href='ComicsController?action=delete&name=<c:out value="${comic.getC().name}"/>'"
+							value="Delete"></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -184,38 +165,64 @@
 					<th>Name</th>
 					<th>Phone</th>
 					<th>Adress</th>
+					<th>Update</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${persons}" var="person">
+				<c:forEach items="${persons}" var="person">
+					<tr>
+						<td><c:out value="${person.name}" /></td>
+						<td><c:out value="${person.telephone}" /></td>
+						<td><c:out value="${person.adress}" /></td>
+						<td><input class="btn btn-primary" id="update" name="update"
+							type="button"
+							onclick="location.href='PersonsController?action=edit&name=<c:out value="${comic.getC().name}"/>'"
+							value="Update"></td>
+						<td><input class="btn btn-primary" name="delete"
+							type="button"
+							onclick="location.href='PersonsController?action=delete&name=<c:out value="${comic.getC().name}"/>'"
+							value="Delete"></td>
+					</tr>
+				</c:forEach>
+			<tfoot>
 				<tr>
-					<td><c:out value="${person.name}" /></td>
-					<td><c:out value="${person.telephone}" /></td>
-					<td><c:out value="${person.adress}" /></td>
+					<th>Name</th>
+					<th>Phone</th>
+					<th>Adress</th>
+					<th>Update</th>
+					<th>Delete</th>
 				</tr>
-			</c:forEach>
+			</tfoot>
 			</tbody>
 		</table>
 	</div>
 	</section>
-
-	<!-- jQuery -->
-	<script src="js/jquery.js"></script>
-
-	<!-- Bootstrap Core JavaScript -->
-	<script src="js/bootstrap.min.js"></script>
-
-	<!-- Plugin JavaScript -->
-	<script
-		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-	<script src="js/classie.js"></script>
-	<script src="js/cbpAnimatedHeader.js"></script>
-
-	<!-- Contact Form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
-
-	<!-- Custom Theme JavaScript -->
-	<script src="js/agency.js"></script>
+	
+<jsp:include page="static/base/footer.jsp"/>
+	<script type="text/javascript">
+		<c:choose>
+		<c:when test="${admin}">
+		var update = document.getElementsByName("update");
+		for (i = 0; i < update.length; i++) {
+			document.getElementsByName("update")[i].disabled = false;
+			document.getElementsByName("delete")[i].disabled = false;
+		}
+		</c:when>
+		<c:otherwise>
+		var update = document.getElementsByName("update");
+		for (i = 0; i < update.length; i++) {
+			document.getElementsByName("update")[i].setAttribute("disabled",
+					true);
+			document.getElementsByName("delete")[i].setAttribute("disabled",
+					true);
+		}
+		</c:otherwise>
+		</c:choose>
+	</script>
+	
+<jsp:include page="static/base/scripts.jsp"/>
 </body>
+
+
 </html>

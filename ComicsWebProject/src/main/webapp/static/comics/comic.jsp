@@ -4,11 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-	<link href="<c:url value="css/bootstrap.css"/>" rel="stylesheet">
-	<link href="<c:url value="css/bootstrap-theme.css"/>" rel="stylesheet">
-	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<jsp:include page="../../static/base/style.jsp"/>
 <title>Add new comic</title>
 </head>
 <body>
@@ -22,7 +18,8 @@
     	<label for="Type">Type:</label>
     	<input type="text" class="form-control" id="Type" value="<c:out value="${comic.getC().getType().name}" />" name="Type">
   	</div>
-  	<button type="submit" class="btn btn-default">Submit</button>
+  	<button type="submit" class="btn btn-primary">Submit</button>
     </form>
+<jsp:include page="../../static/base/scripts.jsp"/>
 </body>
 </html>

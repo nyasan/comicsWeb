@@ -65,7 +65,9 @@ public class PersonsController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		    dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));
-	        response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
+		    request.setAttribute("admin", true);
+		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
+	        view.forward(request, response);
 	}
 
 }

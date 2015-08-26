@@ -79,7 +79,9 @@ public class ComicsController extends HttpServlet {
 		    {
 		    	dao.updateComic(1, comicName, request.getParameter("Type"), comicName);
 		    }
-	        response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
+		    request.setAttribute("admin", true);
+		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
+	        view.forward(request, response);
 	}
 
 }

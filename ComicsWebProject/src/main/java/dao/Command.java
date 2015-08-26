@@ -275,6 +275,15 @@ public class Command {
 			} catch (SQLException e) {
 				System.out.println("There is an error with your submit, please check");
 			}
+			finally{
+				if(a){
+					System.out.println("Your connection is successful");
+				}
+				else
+				{
+					System.out.println("You cant log in");
+				}
+			}
 		}
 		return a;
 	}

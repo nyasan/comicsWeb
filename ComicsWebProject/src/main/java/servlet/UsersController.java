@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ComicDao;
-import dao.PersonDao;
+import dao.UserDao;
 
 /**
- * Servlet implementation class IndexController
+ * Servlet implementation class UsersController
  */
-@WebServlet("/IndexController")
-public class IndexController extends HttpServlet {
+@WebServlet("/UsersController")
+public class UsersController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String HOME = "/index.jsp";
+	private static String LOGIN = "static/authentication/login.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IndexController() {
+    public UsersController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,27 +32,32 @@ public class IndexController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
-        String admin = request.getParameter("admin");
-        if(admin!=null)
+        String action = request.getParameter("action");
+        if(action.equalsIgnoreCase("login"))
         {
-        	request.setAttribute("admin", true);
+        	forward=LOGIN;
         }
-			forward = HOME;
-			ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
-			ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
-			request.setAttribute("comics", comicList);
-			request.setAttribute("persons", personList);
-			
-			 RequestDispatcher view = request.getRequestDispatcher(forward);
-		     view.forward(request, response);
+        RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
+        
+        
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		boolean allow= false;
+		String forward="";
+    	String username = request.getParameter("username");
+    	String password = request.getParameter("password");
+    	allow = UserDao.login(username, password);
+    	if(allow){
+    		request.setAttribute("admin", allow);
+    		forward="/welcome.jsp";
+    	}
+    	RequestDispatcher view = request.getRequestDispatcher(forward);
+        view.forward(request, response);
 	}
 
 }
