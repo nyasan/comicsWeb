@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="static/base/style.jsp"/>
+<jsp:include page="static/base/style.jsp" />
 <title>Show All Comics</title>
 </head>
 <body id="page-top" class="index">
@@ -34,7 +34,7 @@
 				<li><a class="page-scroll" href="#listComics">Comic List</a></li>
 				<li><a class="page-scroll" href="#listPersons">Person List</a>
 				</li>
-				<li><a class="page-scroll" href="#addPerson">Person</a></li>
+				<li><a class="page-scroll" href="#listLoans">Loan List</a></li>
 				<li><a class="page-scroll" href="UsersController?action=logout">Logout</a></li>
 			</ul>
 		</div>
@@ -198,8 +198,53 @@
 		</table>
 	</div>
 	</section>
-	
-<jsp:include page="static/base/footer.jsp"/>
+
+	<!-- Loan List Section-->
+	<section id="listLoans" class="bg-light-gray">
+	<div class="container">
+		<h2>Loan List</h2>
+		<p>This tables show which friends has comics:</p>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Person</th>
+					<th>Comic</th>
+					<th>Date</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${loans}" var="loan">
+					<tr>
+						<td><c:out value="${loan.getPerson().name}" /></td>
+						<td><c:out value="${loan.getComic().getC().name}" /></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${loan.getDate().getTime()}" /></td>
+						<td><input class="btn btn-primary" id="update" name="update"
+							type="button"
+							onclick="location.href='PersonsController?action=edit&name=<c:out value="${loan.date}"/>'"
+							value="Update"></td>
+						<td><input class="btn btn-primary" name="delete"
+							type="button"
+							onclick="location.href='PersonsController?action=delete&name=<c:out value="${loan.date}"/>'"
+							value="Delete"></td>
+					</tr>
+				</c:forEach>
+			<tfoot>
+				<tr>
+					<th>Person</th>
+					<th>Comic</th>
+					<th>Date</th>
+					<th>Update</th>
+					<th>Delete</th>
+				</tr>
+			</tfoot>
+			</tbody>
+		</table>
+	</div>
+	</section>
+
+	<jsp:include page="static/base/footer.jsp" />
 	<script type="text/javascript">
 		<c:choose>
 		<c:when test="${admin}">
@@ -220,8 +265,8 @@
 		</c:otherwise>
 		</c:choose>
 	</script>
-	
-<jsp:include page="static/base/scripts.jsp"/>
+
+	<jsp:include page="static/base/scripts.jsp" />
 </body>
 
 

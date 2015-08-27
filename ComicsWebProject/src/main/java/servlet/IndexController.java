@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ComicDao;
+import dao.LoanDao;
 import dao.PersonDao;
 
 /**
@@ -42,8 +43,10 @@ public class IndexController extends HttpServlet {
 			forward = HOME;
 			ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
 			ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
+			ArrayList loanList = new ArrayList<>(LoanDao.selectLoans().values());
 			request.setAttribute("comics", comicList);
 			request.setAttribute("persons", personList);
+			request.setAttribute("loans", loanList);
 			
 			 RequestDispatcher view = request.getRequestDispatcher(forward);
 		     view.forward(request, response);
