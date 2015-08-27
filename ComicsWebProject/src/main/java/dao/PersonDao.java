@@ -2,6 +2,8 @@ package dao;
 
 import java.util.HashMap;
 
+import entities.Comic;
+import entities.Copy;
 import entities.Person;
 import transactions.People;
 
@@ -23,5 +25,10 @@ public class PersonDao {
 	public static void updatePerson(String name, String telephone, String adress) {
 		Command.update("UPDATE People SET telephone=?,adress=? WHERE name LIKE ?", new Person(name, telephone, adress),
 				name);
+	}
+	
+	public static Object searchPerson(String name) {
+		return Command.search("SELECT * FROM People WHERE name LIKE ?", new Person(name, "", ""),
+				null);
 	}
 }

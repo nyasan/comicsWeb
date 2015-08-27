@@ -153,8 +153,17 @@ public class Command {
 		PreparedStatement ps;
 		try {
 			ps = CONNECTION_MANAGER.open().prepareStatement(sql);
-			if (o instanceof Person) {
+			if (o instanceof Person && i != null) {
 				ps.setInt(1, i[0]);
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					((Person) o).setName(rs.getString("name"));
+					((Person) o).setAdress(rs.getString("adress"));
+					((Person) o).setTelephone(rs.getString("telephone"));
+				}
+			}
+			if (o instanceof Person && i == null) {
+				ps.setString(1, ((Person) o).getName());
 				ResultSet rs = ps.executeQuery();
 				while (rs.next()) {
 					((Person) o).setName(rs.getString("name"));

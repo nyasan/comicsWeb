@@ -78,8 +78,8 @@ public class ComicsController extends HttpServlet {
 		    else
 		    {
 		    	dao.updateComic(1, comicName, request.getParameter("Type"), comicName);
+		    	request.setAttribute("admin", true);
 		    }
-		    request.setAttribute("admin", true);
 		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
 	        view.forward(request, response);
 	}

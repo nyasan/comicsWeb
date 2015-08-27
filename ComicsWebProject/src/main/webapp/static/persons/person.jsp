@@ -20,34 +20,36 @@
 		</div>
 		<div class="row">
 			<div class="col-lg-12">
-				<form name="formAddPerson" id="contactForm" novalidate role="form"
+				<form name="formAddPerson" id="personForm" novalidate role="form"
 					method="POST" action='PersonsController'>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Name *"
+								<input name="name" type="text" class="form-control"
+									placeholder="Name *" value="<c:out value="${person.name}" />"
 									id="name" required
 									data-validation-required-message="Please enter your name.">
 								<p class="help-block text-danger"></p>
 							</div>
 							<div class="form-group">
-								<input type="tel" class="form-control" placeholder="Phone *"
-									id="phone" required
+								<input name="phone" type="tel" class="form-control"
+									placeholder="Phone *"
+									value="<c:out value="${person.telephone}" />" id="phone"
+									required
 									data-validation-required-message="Please enter your phone number.">
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<textarea class="form-control" placeholder="Your Adress *"
-									id="adress" required
+								<textarea name="adress" class="form-control"
+									placeholder="Your Adress *"
+									value="<c:out value="${person.adress}" />" id="adress" required
 									data-validation-required-message="Please enter an adress"></textarea>
 								<p class="help-block text-danger"></p>
 							</div>
 						</div>
-						<div class="clearfix"></div>
 						<div class="col-lg-12 text-center">
-							<div id="success"></div>
 							<button type="submit" class="btn btn-xl">Submit</button>
 						</div>
 					</div>
@@ -57,5 +59,6 @@
 	</div>
 	</section>
 	<jsp:include page="../../static/base/scripts.jsp" />
+	<script src="js/validations.js"></script>
 </body>
 </html>

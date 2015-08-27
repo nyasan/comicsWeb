@@ -64,8 +64,16 @@ public class PersonsController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		    dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));
-		    request.setAttribute("admin", true);
+		 String personName = request.getParameter("name"); 
+		 Person person= (Person)PersonDao.searchPerson(personName);
+		 if(person.getAdress().equalsIgnoreCase(""))
+		 {
+			 dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));			 
+		 }
+		 else{
+			 dao.updatePerson(request.getParameter("name"), request.getParameter("phone"), request.getParameter("adress"));
+			 request.setAttribute("admin", true);
+		 }
 		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
 	        view.forward(request, response);
 	}

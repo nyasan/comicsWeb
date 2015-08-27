@@ -33,12 +33,15 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
         String action = request.getParameter("action");
+        if(action.equalsIgnoreCase("logout")){
+        	response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
+        }
         if(action.equalsIgnoreCase("login"))
         {
         	forward=LOGIN;
+        	RequestDispatcher view = request.getRequestDispatcher(forward);
+        	view.forward(request, response);
         }
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
         
         
 	}

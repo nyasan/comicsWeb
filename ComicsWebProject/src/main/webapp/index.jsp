@@ -35,7 +35,7 @@
 				<li><a class="page-scroll" href="#listPersons">Person List</a>
 				</li>
 				<li><a class="page-scroll" href="#addPerson">Person</a></li>
-				<li><a class="page-scroll" href="#">Contact</a></li>
+				<li><a class="page-scroll" href="UsersController?action=logout">Logout</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->

@@ -1,25 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<jsp:include page="../../static/base/style.jsp"/>
+<jsp:include page="../../static/base/style.jsp" />
 <title>Add new comic</title>
 </head>
 <body>
-    <form role="form" method="POST" action='ComicsController' name="formAddComic">
-    <div class="form-group">
-    	<label for="name">Name:</label>
-    	<input type="text" class="form-control" id="name" value="<c:out value="${comic.getC().name}" />" name="name">
-  	</div>
-    <br />
-    <div class="form-group">
-    	<label for="Type">Type:</label>
-    	<input type="text" class="form-control" id="Type" value="<c:out value="${comic.getC().getType().name}" />" name="Type">
-  	</div>
-  	<button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-<jsp:include page="../../static/base/scripts.jsp"/>
+	<section id="adding">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading">Comic</h2>
+				<h3 class="section-subheading text-muted">Completes the data
+					below to create a new comic</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<form name="formAddComic" id="comicForm" novalidate role="form"
+					method="POST" action='ComicsController'>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input name="name" type="text" class="form-control"
+									placeholder="Name *"
+									value="<c:out value="${comic.getC().name}" />" id="name"
+									required
+									data-validation-required-message="Please enter the name.">
+								<p class="help-block text-danger"></p>
+							</div>
+							<div class="form-group">
+								<input name="Type" type="text" class="form-control"
+									placeholder="Genre *"
+									value="<c:out value="${comic.getC().getType().name}" />"
+									id="Type" required
+									data-validation-required-message="Please enter the genre Type.">
+								<p class="help-block text-danger"></p>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-lg-12 text-center">
+							<div id="success"></div>
+							<button type="submit" class="btn btn-xl">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</section>
+	<jsp:include page="../../static/base/scripts.jsp" />
+	<script src="js/validations.js"></script>
 </body>
 </html>
