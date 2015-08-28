@@ -217,6 +217,14 @@ public class Command {
 		try {
 			ps = CONNECTION_MANAGER.open().prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
+			if (o instanceof Genre) {
+				while (rs.next()) {
+					o = new Genre();
+					((Genre) o).setName(rs.getString("name"));
+					((Genre) o).setDescription(rs.getString("description"));
+					map.put(((Genre) o).getName(), o);
+				}
+			}
 			if (o instanceof Copy) {
 				while (rs.next()) {
 					o = new Copy();

@@ -21,6 +21,10 @@ public class ComicDao {
 	public static HashMap<String, Object> selectComics() {
 		return Command.select("SELECT * FROM comics", new Copy());
 	}
+	
+	public static HashMap<String, Object> selectGenres() {
+		return Command.select("SELECT * FROM genres", new Genre());
+	}
 
 	public static void updateComic(int number, String name, String genre, String nameOriginal) {
 		Command.update("UPDATE comics SET id_genre=?,name=?,number=? WHERE name=?",

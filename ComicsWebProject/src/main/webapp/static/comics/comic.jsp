@@ -33,13 +33,16 @@
 								<p class="help-block text-danger"></p>
 							</div>
 							<div class="form-group">
-								<input name="Type" type="text" class="form-control"
-									placeholder="Genre *"
-									value="<c:out value="${comic.getC().getType().name}" />"
-									id="Type" required
-									data-validation-required-message="Please enter the genre Type.">
+								<label for="genreList">Genre:</label>
+								<select id="genreList" name="Type" class="form-control" required
+									data-validation-required-message="Please select a genre.">
+								<c:forEach items="${genres}" var="genre">
+  									<option value="<c:out value="${genre.name}" />"><c:out value="${genre.name}" /></option>
+  								</c:forEach>
+								</select>
 								<p class="help-block text-danger"></p>
 							</div>
+							
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-lg-12 text-center">

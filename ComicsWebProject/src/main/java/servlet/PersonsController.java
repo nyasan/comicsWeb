@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,8 +22,7 @@ import entities.Person;
 public class PersonsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String INSERT_OR_EDIT = "static/persons/person.jsp";
-    private static String LIST_PERSONS = "index.jsp";
-    private static PersonDao dao;
+    private static String LIST_PERSONS = "/index.jsp";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -41,22 +41,13 @@ public class PersonsController extends HttpServlet {
 
         if (action.equalsIgnoreCase("delete")){
             String name = request.getParameter("name");
-            dao.deletePerson(name);
-            forward = LIST_PERSONS;
-            request.setAttribute("comics", dao.selectPeople());    
-        } else if (action.equalsIgnoreCase("edit")){
-            forward = INSERT_OR_EDIT;
-            String name = request.getParameter("name");
-            dao.updatePerson(name, " ", " ");
-            request.setAttribute("person", null);
-        } else if (action.equalsIgnoreCase("listPersons")){
-            forward = LIST_PERSONS;
-            request.setAttribute("persons", dao.selectPeople());
+            PersonDao.deletePerson(name);
+            request.setAttribute("admin", true);
         } else {
             forward = INSERT_OR_EDIT;
         }
 
-        RequestDispatcher view = request.getRequestDispatcher(forward);
+        RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
         view.forward(request, response);
 	} 
 
@@ -68,10 +59,10 @@ public class PersonsController extends HttpServlet {
 		 Person person= (Person)PersonDao.searchPerson(personName);
 		 if(person.getAdress().equalsIgnoreCase(""))
 		 {
-			 dao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));			 
+			 PersonDao.insertPerson(request.getParameter("name"),request.getParameter("phone"),request.getParameter("adress"));			 
 		 }
 		 else{
-			 dao.updatePerson(request.getParameter("name"), request.getParameter("phone"), request.getParameter("adress"));
+			 PersonDao.updatePerson(request.getParameter("name"), request.getParameter("phone"), request.getParameter("adress"));
 			 request.setAttribute("admin", true);
 		 }
 		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");

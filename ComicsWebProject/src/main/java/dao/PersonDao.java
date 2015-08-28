@@ -18,7 +18,6 @@ public class PersonDao {
 	}
 
 	public static void deletePerson(String name) {
-		People.getInstance().getMap().remove(name);
 		Command.delete("DELETE FROM people WHERE name LIKE ?", name);
 	}
 

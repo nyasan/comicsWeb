@@ -41,22 +41,13 @@ public class ComicsController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String forward="";
 	        String action = request.getParameter("action");
-
+	        ArrayList genreList = new ArrayList<>(ComicDao.selectGenres().values());
+	        request.setAttribute("genres", genreList);
 	        if (action.equalsIgnoreCase("delete")){
 	            String name = request.getParameter("name");
 	            dao.deleteComic(name);
-	            forward = LIST_USER;
-	            ArrayList list = new ArrayList<>(dao.selectComics().values());
-	            request.setAttribute("comics", list);    
-	        } else if (action.equalsIgnoreCase("edit")){
-	            forward = INSERT_OR_EDIT;
-	            String name = request.getParameter("name");
-	            Copy comic = (Copy)dao.searchComic(name);
-	            request.setAttribute("comic", comic);
-	        } else if (action.equalsIgnoreCase("listComics")){
-	            forward = LIST_USER;
-	            ArrayList list = new ArrayList<>(dao.selectComics().values());
-	            request.setAttribute("comics", list);
+	            forward = "/welcome.jsp";
+	            request.setAttribute("admin", true);
 	        } else {
 	            forward = INSERT_OR_EDIT;
 	        }
@@ -73,7 +64,7 @@ public class ComicsController extends HttpServlet {
 		    Copy comic = (Copy)dao.searchComic(comicName);
 		    if(comic.getC().getType()==null)
 		    {
-		    	dao.insertComic(request.getParameter("name"),request.getParameter("Type") );;
+		    	dao.insertComic(request.getParameter("name"),request.getParameter("Type") );
 		    }
 		    else
 		    {

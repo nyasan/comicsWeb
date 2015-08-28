@@ -177,11 +177,11 @@
 						<td><c:out value="${person.adress}" /></td>
 						<td><input class="btn btn-primary" id="update" name="update"
 							type="button"
-							onclick="location.href='PersonsController?action=edit&name=<c:out value="${comic.getC().name}"/>'"
+							onclick="location.href='PersonsController?action=edit&name=<c:out value="${person.name}"/>'"
 							value="Update"></td>
 						<td><input class="btn btn-primary" name="delete"
 							type="button"
-							onclick="location.href='PersonsController?action=delete&name=<c:out value="${comic.getC().name}"/>'"
+							onclick="location.href='PersonsController?action=delete&name=<c:out value="${person.name}"/>'"
 							value="Delete"></td>
 					</tr>
 				</c:forEach>

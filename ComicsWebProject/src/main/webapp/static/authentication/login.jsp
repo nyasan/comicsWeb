@@ -5,24 +5,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<link href="<c:url value="css/bootstrap.css"/>" rel="stylesheet">
-	<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<jsp:include page="../../static/base/style.jsp" />
+<link href="css/signin.css" rel="stylesheet">
 <title>Login</title>
 </head>
 <body>
-	<form role="form" method="POST" action='UsersController' name="formLogin">
+<div class="container">
+	<form role="form" method="POST" action='UsersController' name="formLogin form-signin">
+	<h2 class="form-signin-heading">Please sign in</h2>
     <div class="form-group">
     	<label for="username">Username:</label>
-    	<input type="text" class="form-control" id="username" name="username">
+    	<input placeholder="Username" type="text" class="form-control" id="username" name="username" required autofocus>
   	</div>
     <br />
     <div class="form-group">
     	<label for="password">Password:</label>
-    	<input type="password" class="form-control" id="password" name="password">
+    	<input type="password" placeholder="Password" class="form-control" id="password" name="password" required>
   	</div>
-  	<button type="submit" class="btn btn-default">Submit</button>
+  	<button type="submit" class="btn btn-lg btn-primary btn-block">Submit</button>
     </form>
+    </div>
 </body>
 </html>
