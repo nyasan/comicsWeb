@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-	<form role="form" method="POST" action='UsersController' name="formLogin form-signin">
+	<form role="form" method="POST" action='UsersController?action=login' name="formLogin form-signin">
 	<h2 class="form-signin-heading">Please sign in</h2>
     <div class="form-group">
     	<label for="username">Username:</label>

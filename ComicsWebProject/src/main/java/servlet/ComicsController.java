@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ComicDao;
+import dao.PersonDao;
 import entities.Comic;
 import entities.Copy;
 import entities.Genre;
+import entities.Person;
 import transactions.Catalog;
 
 /**
@@ -24,7 +26,7 @@ import transactions.Catalog;
 public class ComicsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String INSERT_OR_EDIT = "static/comics/comic.jsp";
-    private static String LIST_USER = "/index.jsp";
+    private static String LIST_USER = "/welcome.jsp";
     private static ComicDao dao;
        
     /**
@@ -48,7 +50,14 @@ public class ComicsController extends HttpServlet {
 	            dao.deleteComic(name);
 	            forward = "/welcome.jsp";
 	            request.setAttribute("admin", true);
-	        } else {
+	        } else if(action.equalsIgnoreCase("edit")){
+	        	forward = INSERT_OR_EDIT;
+	        	String name = request.getParameter("name");
+	            Copy comic = (Copy)ComicDao.searchComic(name);
+	            request.setAttribute("comic", comic);
+	            request.setAttribute("admin", true);
+	        }
+	        else {
 	            forward = INSERT_OR_EDIT;
 	        }
 
@@ -71,8 +80,7 @@ public class ComicsController extends HttpServlet {
 		    	dao.updateComic(1, comicName, request.getParameter("Type"), comicName);
 		    	request.setAttribute("admin", true);
 		    }
-		    RequestDispatcher view = request.getRequestDispatcher("/welcome.jsp");
-	        view.forward(request, response);
+		    response.sendRedirect("/ComicsWebProject/welcome.jsp");
 	}
 
 }

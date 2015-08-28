@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.ComicDao;
 import dao.LoanDao;
@@ -53,6 +54,7 @@ public class LoansController extends HttpServlet {
 		String forward="";
 		String comicName = request.getParameter("name");
 		String person = request.getParameter("person");
+		
 		
 		LoanDao.insertLoan(person, comicName, Calendar.getInstance());
 		

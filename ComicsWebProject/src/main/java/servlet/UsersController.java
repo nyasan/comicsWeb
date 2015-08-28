@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
 
@@ -33,7 +34,9 @@ public class UsersController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
         String action = request.getParameter("action");
+        HttpSession context= request.getSession();
         if(action.equalsIgnoreCase("logout")){
+        	context.invalidate();
         	response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
         }
         if(action.equalsIgnoreCase("login"))
@@ -51,16 +54,16 @@ public class UsersController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean allow= false;
+		HttpSession context= request.getSession();
 		String forward="";
     	String username = request.getParameter("username");
     	String password = request.getParameter("password");
     	allow = UserDao.login(username, password);
     	if(allow){
-    		request.setAttribute("admin", allow);
+    		context.setAttribute("admin", true);
     		forward="/welcome.jsp";
     	}
-    	RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+    	response.sendRedirect("/ComicsWebProject/welcome.jsp");
 	}
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="EUC-KR" errorPage="static/exceptions/error.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -219,7 +219,8 @@
 					<tr>
 						<td><c:out value="${loan.getPerson().name}" /></td>
 						<td><c:out value="${loan.getComic().getC().name}" /></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd"  value="${loan.getDate().getTime()}" /></td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd"
+								value="${loan.getDate().getTime()}" /></td>
 						<td><input class="btn btn-primary" id="update" name="update"
 							type="button"
 							onclick="location.href='PersonsController?action=edit&name=<c:out value="${loan.date}"/>'"
@@ -243,18 +244,22 @@
 		</table>
 	</div>
 	</section>
-
 	<jsp:include page="static/base/footer.jsp" />
+	<%
+		Boolean allow = (Boolean) session.getAttribute("admin");
+		if (allow!=null) {
+	%>
 	<script type="text/javascript">
-		<c:choose>
-		<c:when test="${admin}">
 		var update = document.getElementsByName("update");
 		for (i = 0; i < update.length; i++) {
 			document.getElementsByName("update")[i].disabled = false;
 			document.getElementsByName("delete")[i].disabled = false;
 		}
-		</c:when>
-		<c:otherwise>
+	</script>
+	<%
+		} else {
+	%>
+	<script type="text/javascript">
 		var update = document.getElementsByName("update");
 		for (i = 0; i < update.length; i++) {
 			document.getElementsByName("update")[i].setAttribute("disabled",
@@ -262,9 +267,10 @@
 			document.getElementsByName("delete")[i].setAttribute("disabled",
 					true);
 		}
-		</c:otherwise>
-		</c:choose>
 	</script>
+	<%
+		}
+	%>
 
 	<jsp:include page="static/base/scripts.jsp" />
 </body>
