@@ -15,6 +15,10 @@ import javax.servlet.http.HttpSession;
 import dao.ComicDao;
 import dao.LoanDao;
 import dao.PersonDao;
+import entities.Comic;
+import entities.Copy;
+import entities.Loan;
+import entities.Person;
 
 /**
  * Servlet implementation class LoansController
@@ -37,12 +41,22 @@ public class LoansController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
+		String action = request.getParameter("action");
+		if(action.equalsIgnoreCase("edit")){
+			forward = LOAN;
+        	String name = request.getParameter("name");
+        	String comicName = request.getParameter("comicName");
+            Loan loan = new Loan(new Person(name,"",""),new Copy(1, new Comic(comicName,null), true));
+            request.setAttribute("loan", loan);
+            request.setAttribute("admin", true);
+		}else
+		{
 		ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
 		ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
 		request.setAttribute("comics", comicList);
 		request.setAttribute("persons", personList);
-        
         forward=LOAN;
+		}
         RequestDispatcher view = request.getRequestDispatcher(forward);
         view.forward(request, response);
 	}

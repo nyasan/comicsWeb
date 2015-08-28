@@ -223,12 +223,8 @@
 								value="${loan.getDate().getTime()}" /></td>
 						<td><input class="btn btn-primary" id="update" name="update"
 							type="button"
-							onclick="location.href='PersonsController?action=edit&name=<c:out value="${loan.date}"/>'"
+							onclick="location.href='PersonsController?action=edit&name=<c:out value="${loan.getPerson().name}"/>&comicName=<c:out value="${loan.getC().name}"/>'"
 							value="Update"></td>
-						<td><input class="btn btn-primary" name="delete"
-							type="button"
-							onclick="location.href='PersonsController?action=delete&name=<c:out value="${loan.date}"/>'"
-							value="Delete"></td>
 					</tr>
 				</c:forEach>
 			<tfoot>

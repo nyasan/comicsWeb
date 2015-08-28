@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR" errorPage="static/exceptions/error.jsp"%>
+	pageEncoding="EUC-KR" errorPage="../exceptions/error.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,7 +37,7 @@
 								<select id="genreList" name="Type" class="form-control" required
 									data-validation-required-message="Please select a genre.">
 								<c:forEach items="${genres}" var="genre">
-  									<option value="<c:out value="${genre.name}" />"><c:out value="${genre.name}" /></option>
+  									<option value="<c:out value="${genre.name}" />" <c:if test="${comic.getC().getType().name == genre.name}">selected="true"</c:if>><c:out value="${genre.name}" /></option>
   								</c:forEach>
 								</select>
 								<p class="help-block text-danger"></p>
