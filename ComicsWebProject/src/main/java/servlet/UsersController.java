@@ -37,7 +37,7 @@ public class UsersController extends HttpServlet {
         HttpSession context= request.getSession();
         if(action.equalsIgnoreCase("logout")){
         	context.invalidate();
-        	response.sendRedirect("http://localhost:8080/ComicsWebProject/welcome.jsp");
+        	response.sendRedirect("/ComicsWebProject/welcome.jsp");
         }
         if(action.equalsIgnoreCase("login"))
         {

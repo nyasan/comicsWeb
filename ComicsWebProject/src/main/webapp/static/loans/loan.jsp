@@ -25,22 +25,26 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label for="comicList">Comic:</label>
-								<select id="comicList" name="name" class="form-control" required
+								<label for="comicList">Comic:</label> <select id="comicList"
+									name="name" class="form-control" required
 									data-validation-required-message="Please select a comic.">
-								<c:forEach items="${comics}" var="comic">
-  									<option value="<c:out value="${comic.getC().name}" />"><c:out value="${comic.getC().name}" /></option>
-  								</c:forEach>
+									<c:forEach items="${comics}" var="comic">
+										<option value="<c:out value="${comic.getC().name}" />"
+											<c:if test="${comic.getC().name == loan.getComic().getC().name}">selected="true"</c:if>><c:out
+												value="${comic.getC().name}" /></option>
+									</c:forEach>
 								</select>
 								<p class="help-block text-danger"></p>
 							</div>
 							<div class="form-group">
-								<label for="personList">Person:</label>
-								<select id="personList" name="person" class="form-control" required
+								<label for="personList">Person:</label> <select id="personList"
+									name="person" class="form-control" required
 									data-validation-required-message="Please select a person.">
-								<c:forEach items="${persons}" var="person">
-  									<option value="<c:out value="${person.name}" />"><c:out value="${person.name}" /></option>
-  								</c:forEach>
+									<c:forEach items="${persons}" var="person">
+										<option value="<c:out value="${person.name}" />"
+											<c:if test="${person.name == loan.getPerson().name}">selected="true"</c:if>><c:out
+												value="${person.name}" /></option>
+									</c:forEach>
 								</select>
 								<p class="help-block text-danger"></p>
 							</div>
@@ -54,7 +58,18 @@
 		</div>
 	</div>
 	</section>
-	<jsp:include page="../../static/base/scripts.jsp" />
+	<jsp:include page="../../static/base/scripts.jsp" />	
 	<script src="js/validations.js"></script>
+	<%
+		String edit = (String)session.getAttribute("action");
+		if (edit!=null && edit.equalsIgnoreCase("edit")) {
+	%>
+	<script type="text/javascript">
+		document.getElementById("comicList").disabled = true;
+		document.getElementById("personList").disabled = true;
+		
+		$('#loanForm').on('submit', function() { $('#comicList').attr('disabled', false); $('#personList').attr('disabled', false);});
+	</script>
+	<%} %>
 </body>
 </html>

@@ -211,7 +211,6 @@
 					<th>Comic</th>
 					<th>Date</th>
 					<th>Update</th>
-					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -223,7 +222,7 @@
 								value="${loan.getDate().getTime()}" /></td>
 						<td><input class="btn btn-primary" id="update" name="update"
 							type="button"
-							onclick="location.href='PersonsController?action=edit&name=<c:out value="${loan.getPerson().name}"/>&comicName=<c:out value="${loan.getC().name}"/>'"
+							onclick="location.href='LoansController?action=edit&name=<c:out value="${loan.getPerson().name}"/>&comicName=<c:out value="${loan.getComic().getC().name}"/>'"
 							value="Update"></td>
 					</tr>
 				</c:forEach>
@@ -233,7 +232,6 @@
 					<th>Comic</th>
 					<th>Date</th>
 					<th>Update</th>
-					<th>Delete</th>
 				</tr>
 			</tfoot>
 			</tbody>
@@ -241,6 +239,7 @@
 	</div>
 	</section>
 	<jsp:include page="static/base/footer.jsp" />
+	<jsp:include page="static/base/scripts.jsp" />
 	<%
 		Boolean allow = (Boolean) session.getAttribute("admin");
 		if (allow!=null) {
@@ -257,18 +256,19 @@
 	%>
 	<script type="text/javascript">
 		var update = document.getElementsByName("update");
+		$('#add').hide();	
 		for (i = 0; i < update.length; i++) {
 			document.getElementsByName("update")[i].setAttribute("disabled",
 					true);
 			document.getElementsByName("delete")[i].setAttribute("disabled",
 					true);
 		}
+	
 	</script>
 	<%
 		}
 	%>
 
-	<jsp:include page="static/base/scripts.jsp" />
 </body>
 
 

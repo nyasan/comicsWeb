@@ -74,7 +74,7 @@ public class PersonsController extends HttpServlet {
 		 else{
 			 PersonDao.updatePerson(request.getParameter("name"), request.getParameter("phone"), request.getParameter("adress"));
 		 }
-		 response.sendRedirect("localhost:8080/ComicsWebProject/welcome.jsp");
+		 response.sendRedirect("/ComicsWebProject/welcome.jsp");
 	}
 
 }

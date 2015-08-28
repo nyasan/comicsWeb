@@ -42,19 +42,22 @@ public class LoansController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
 		String action = request.getParameter("action");
+		HttpSession context= request.getSession();
+		ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
+		ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
+		request.setAttribute("comics", comicList);
+		request.setAttribute("persons", personList);
 		if(action.equalsIgnoreCase("edit")){
 			forward = LOAN;
         	String name = request.getParameter("name");
         	String comicName = request.getParameter("comicName");
             Loan loan = new Loan(new Person(name,"",""),new Copy(1, new Comic(comicName,null), true));
+            context.setAttribute("action", "edit");
             request.setAttribute("loan", loan);
-            request.setAttribute("admin", true);
+            
 		}else
 		{
-		ArrayList comicList = new ArrayList<>(ComicDao.selectComics().values());
-		ArrayList personList = new ArrayList<>(PersonDao.selectPeople().values());
-		request.setAttribute("comics", comicList);
-		request.setAttribute("persons", personList);
+		context.setAttribute("action", "insert");
         forward=LOAN;
 		}
         RequestDispatcher view = request.getRequestDispatcher(forward);
@@ -66,15 +69,18 @@ public class LoansController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
+		HttpSession context= request.getSession();
+		String action =(String) context.getAttribute("action");
 		String comicName = request.getParameter("name");
 		String person = request.getParameter("person");
-		
-		
-		LoanDao.insertLoan(person, comicName, Calendar.getInstance());
-		
-		forward="/welcome.jsp";
-        RequestDispatcher view = request.getRequestDispatcher(forward);
-        view.forward(request, response);
+		if(action.equalsIgnoreCase("edit")){
+			LoanDao.updateLoan(person,comicName);
+		}else
+		{
+			LoanDao.insertLoan(person, comicName, Calendar.getInstance());			
+		}
+				
+		response.sendRedirect("/ComicsWebProject/welcome.jsp");
 	}
 
 }
