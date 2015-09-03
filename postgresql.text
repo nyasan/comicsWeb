@@ -1,0 +1,467 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.4.4
+-- Dumped by pg_dump version 9.4.4
+-- Started on 2015-09-03 10:17:43
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 182 (class 3079 OID 11855)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2053 (class 0 OID 0)
+-- Dependencies: 182
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 179 (class 1259 OID 16550)
+-- Name: comics; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE comics (
+    id integer NOT NULL,
+    id_genre integer,
+    avalible integer,
+    name text,
+    number integer
+);
+
+
+ALTER TABLE comics OWNER TO postgres;
+
+--
+-- TOC entry 178 (class 1259 OID 16548)
+-- Name: comics_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE comics_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE comics_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2054 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: comics_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE comics_id_seq OWNED BY comics.id;
+
+
+--
+-- TOC entry 175 (class 1259 OID 16528)
+-- Name: genres; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE genres (
+    id integer NOT NULL,
+    name text,
+    description text
+);
+
+
+ALTER TABLE genres OWNER TO postgres;
+
+--
+-- TOC entry 174 (class 1259 OID 16526)
+-- Name: genres_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE genres_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE genres_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2055 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: genres_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE genres_id_seq OWNED BY genres.id;
+
+
+--
+-- TOC entry 181 (class 1259 OID 16566)
+-- Name: loans; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE loans (
+    id integer NOT NULL,
+    id_people integer,
+    id_comic integer,
+    date date,
+    date_return date
+);
+
+
+ALTER TABLE loans OWNER TO postgres;
+
+--
+-- TOC entry 180 (class 1259 OID 16564)
+-- Name: loans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE loans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE loans_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2056 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: loans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE loans_id_seq OWNED BY loans.id;
+
+
+--
+-- TOC entry 177 (class 1259 OID 16539)
+-- Name: people; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE people (
+    id integer NOT NULL,
+    name text,
+    telephone text,
+    adress text
+);
+
+
+ALTER TABLE people OWNER TO postgres;
+
+--
+-- TOC entry 176 (class 1259 OID 16537)
+-- Name: people_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE people_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2057 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE people_id_seq OWNED BY people.id;
+
+
+--
+-- TOC entry 173 (class 1259 OID 16503)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    username text,
+    password text
+);
+
+
+ALTER TABLE users OWNER TO postgres;
+
+--
+-- TOC entry 172 (class 1259 OID 16501)
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2058 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- TOC entry 1912 (class 2604 OID 16553)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comics ALTER COLUMN id SET DEFAULT nextval('comics_id_seq'::regclass);
+
+
+--
+-- TOC entry 1910 (class 2604 OID 16531)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY genres ALTER COLUMN id SET DEFAULT nextval('genres_id_seq'::regclass);
+
+
+--
+-- TOC entry 1913 (class 2604 OID 16569)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY loans ALTER COLUMN id SET DEFAULT nextval('loans_id_seq'::regclass);
+
+
+--
+-- TOC entry 1911 (class 2604 OID 16542)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY people ALTER COLUMN id SET DEFAULT nextval('people_id_seq'::regclass);
+
+
+--
+-- TOC entry 1909 (class 2604 OID 16506)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- TOC entry 2043 (class 0 OID 16550)
+-- Dependencies: 179
+-- Data for Name: comics; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comics (id, id_genre, avalible, name, number) FROM stdin;
+23	1	1	Spiderman	1
+\.
+
+
+--
+-- TOC entry 2059 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: comics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('comics_id_seq', 25, true);
+
+
+--
+-- TOC entry 2039 (class 0 OID 16528)
+-- Dependencies: 175
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY genres (id, name, description) FROM stdin;
+1	Science Fiction	Fantastical
+2	Superheroes	The best of all genres
+\.
+
+
+--
+-- TOC entry 2060 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: genres_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('genres_id_seq', 2, true);
+
+
+--
+-- TOC entry 2045 (class 0 OID 16566)
+-- Dependencies: 181
+-- Data for Name: loans; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY loans (id, id_people, id_comic, date, date_return) FROM stdin;
+23	13	23	2015-08-31	2015-08-31
+\.
+
+
+--
+-- TOC entry 2061 (class 0 OID 0)
+-- Dependencies: 180
+-- Name: loans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('loans_id_seq', 23, true);
+
+
+--
+-- TOC entry 2041 (class 0 OID 16539)
+-- Dependencies: 177
+-- Data for Name: people; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY people (id, name, telephone, adress) FROM stdin;
+13	Romeo	77987987	capitalinas
+14	Hernan	34987988798	Humberto Primo
+15	Ricardo	354988798798	General Paz
+10	Gustavo	4678798	27 de Abril
+\.
+
+
+--
+-- TOC entry 2062 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: people_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('people_id_seq', 15, true);
+
+
+--
+-- TOC entry 2037 (class 0 OID 16503)
+-- Dependencies: 173
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY users (id, username, password) FROM stdin;
+1	Sheldon	Bazinga
+\.
+
+
+--
+-- TOC entry 2063 (class 0 OID 0)
+-- Dependencies: 172
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- TOC entry 1921 (class 2606 OID 16558)
+-- Name: comics_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comics
+    ADD CONSTRAINT comics_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1917 (class 2606 OID 16536)
+-- Name: genre_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY genres
+    ADD CONSTRAINT genre_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1923 (class 2606 OID 16571)
+-- Name: loan_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loan_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1919 (class 2606 OID 16547)
+-- Name: people_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY people
+    ADD CONSTRAINT people_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1915 (class 2606 OID 16511)
+-- Name: users_pk; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1924 (class 2606 OID 16559)
+-- Name: comics_genre_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comics
+    ADD CONSTRAINT comics_genre_fk FOREIGN KEY (id_genre) REFERENCES genres(id);
+
+
+--
+-- TOC entry 1925 (class 2606 OID 16572)
+-- Name: loan_comic_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loan_comic_fk FOREIGN KEY (id_comic) REFERENCES comics(id);
+
+
+--
+-- TOC entry 1926 (class 2606 OID 16577)
+-- Name: loan_people_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY loans
+    ADD CONSTRAINT loan_people_fk FOREIGN KEY (id_people) REFERENCES people(id);
+
+
+--
+-- TOC entry 2052 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2015-09-03 10:17:44
+
+--
+-- PostgreSQL database dump complete
+--
+
